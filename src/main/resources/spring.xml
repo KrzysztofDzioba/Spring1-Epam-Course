@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean
+        id="auditorium" class="ua.epam.spring.hometask.domain.Auditorium">
+    </bean>
+
+    <bean
+            id="domainObject" class="ua.epam.spring.hometask.domain.DomainObject">
+    </bean>
+
+    <bean
+            id="event" class="ua.epam.spring.hometask.domain.Event">
+    </bean>
+
+    <bean
+            id="eventRating" class="ua.epam.spring.hometask.domain.EventRating">
+    </bean>
+
+    <bean
+            id="ticket" class="ua.epam.spring.hometask.domain.Ticket">
+            <constructor-arg index="0" ref="user"/>
+            <constructor-arg index="1" ref="event"/>
+            <constructor-arg index="2" value="" />
+            <constructor-arg index="3" value="5" />
+    </bean>
+
+    <bean
+            id="user" class="ua.epam.spring.hometask.domain.User">
+    </bean>
+</beans>
