@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 import ua.epam.spring.hometask.domain.DomainObject;
 
 /**
- * @author Yuriy_Tkach
+ *
  *
  * @param <T>
  *            DomainObject subclass

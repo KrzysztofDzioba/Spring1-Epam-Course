@@ -9,7 +9,7 @@ import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.User;
 
 /**
- * @author Yuriy_Tkach
+ *
  */
 public interface DiscountService {
 

@@ -1,15 +1,9 @@
 package ua.epam.spring.hometask.domain;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
-/**
- * @author Yuriy_Tkach
- */
 public class Auditorium {
 
     private String name;
@@ -19,6 +13,19 @@ public class Auditorium {
     private Set<Long> vipSeats = Collections.emptySet();
 
     public Auditorium() {
+    }
+
+    // TODO for course instructor - please answer me for this question: Is there a possibility not to create this 3-arg
+    // constructor and inject vipSeats field directly from .properties file instead of injecting String into constructor
+    // and then converting it into an array?
+    public Auditorium(String name, long numberOfSeats, String vipSeats) {
+        this.name = name;
+        this.numberOfSeats = numberOfSeats;
+        this.vipSeats = getVipSeatsSet(vipSeats);
+    }
+
+    private Set<Long> getVipSeatsSet(String vipSeats) {
+        return Arrays.stream(vipSeats.split(",")).map(Long::valueOf).collect(Collectors.toSet());
     }
 
     /**

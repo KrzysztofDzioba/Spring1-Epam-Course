@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 import ua.epam.spring.hometask.domain.Event;
 
 /**
- * @author Yuriy_Tkach
+ *
  */
 public interface EventService extends AbstractDomainObjectService<Event> {
 
