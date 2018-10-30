@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.service.implementation;
 
+import ua.epam.spring.hometask.dao.StrategiesDatabase;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.User;
 import ua.epam.spring.hometask.service.DiscountService;
@@ -8,16 +9,15 @@ import ua.epam.spring.hometask.service.DiscountStrategy;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class DiscountServiceImpl implements DiscountService {
 
-    private List<DiscountStrategy> strategies;
+    private StrategiesDatabase strategies;
 
     @Override
     public byte getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets) {
         int discount = 0;
-        for (DiscountStrategy discountStrategy : strategies) {
+        for (DiscountStrategy discountStrategy : strategies.getAll()) {
             int discountAmount = discountStrategy.getDiscount(user, numberOfTickets, airDateTime).getDiscountAmount();
             if (discount < discountAmount)
                 discount = discountAmount;
@@ -25,7 +25,7 @@ public class DiscountServiceImpl implements DiscountService {
         return Byte.valueOf(String.valueOf(discount));
     }
 
-    public void setStrategies(List<DiscountStrategy> strategies) {
+    public void setStrategies(StrategiesDatabase strategies) {
         this.strategies = strategies;
     }
 }

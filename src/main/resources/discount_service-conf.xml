@@ -5,6 +5,12 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="discountService" class="ua.epam.spring.hometask.service.implementation.DiscountServiceImpl">
+        <property name="strategies" ref="strategiesDatabase"/>
+    </bean>
+
+    <bean id="discountStrategyBirthday" class="ua.epam.spring.hometask.service.implementation.DiscountStrategyBirthday"/>
+    <bean id="discountStrategyEvery10Tickets" class="ua.epam.spring.hometask.service.implementation.DiscountStrategyEvery10Tickets"/>
+    <bean id="strategiesDatabase" class="ua.epam.spring.hometask.dao.StrategiesDatabase">
         <property name="strategies">
             <list>
                 <ref bean="discountStrategyBirthday"/>
@@ -12,8 +18,5 @@
             </list>
         </property>
     </bean>
-
-    <bean id="discountStrategyBirthday" class="ua.epam.spring.hometask.service.implementation.DiscountStrategyBirthday"/>
-    <bean id="discountStrategyEvery10Tickets" class="ua.epam.spring.hometask.service.implementation.DiscountStrategyEvery10Tickets"/>
 
 </beans>

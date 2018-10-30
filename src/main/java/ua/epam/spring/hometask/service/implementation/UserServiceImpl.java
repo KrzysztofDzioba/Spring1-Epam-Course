@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.service.implementation;
 
+import ua.epam.spring.hometask.dao.UserDatabase;
 import ua.epam.spring.hometask.domain.User;
 import ua.epam.spring.hometask.service.UserService;
 
@@ -9,7 +10,7 @@ import java.util.*;
 
 public class UserServiceImpl implements UserService {
 
-    public static Map<Long, User> registeredUsers = new HashMap<>();
+    private UserDatabase registeredUsers;
 
     @Nullable
     @Override
@@ -48,5 +49,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Collection<User> getAll() {
         return registeredUsers.values();
+    }
+
+    public void setRegisteredUsers(UserDatabase registeredUsers) {
+        this.registeredUsers = registeredUsers;
     }
 }

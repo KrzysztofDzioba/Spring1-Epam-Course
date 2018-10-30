@@ -1,6 +1,6 @@
 package ua.epam.spring.hometask.service.implementation;
 
-import ua.epam.spring.hometask.domain.Auditorium;
+import ua.epam.spring.hometask.dao.BookingDatabase;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.Ticket;
 import ua.epam.spring.hometask.domain.User;
@@ -10,7 +10,6 @@ import ua.epam.spring.hometask.service.DiscountService;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ public class BookingServiceImpl implements BookingService {
 
     private DiscountService discountService;
 
-    private Set<Ticket> bookedTickets = new HashSet<>();
+    private BookingDatabase bookedTickets;
 
     @Override
     public double getTicketsPrice(@Nonnull Event event,
@@ -57,5 +56,9 @@ public class BookingServiceImpl implements BookingService {
 
     public void setDiscountService(DiscountService discountService) {
         this.discountService = discountService;
+    }
+
+    public void setBookedTickets(BookingDatabase bookedTickets) {
+        this.bookedTickets = bookedTickets;
     }
 }

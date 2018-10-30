@@ -7,7 +7,7 @@
                            http://www.springframework.org/schema/context/spring-context.xsd"
        xmlns:context="http://www.springframework.org/schema/context">
 
-    <import resource="discount_service-conf.xml" />
+    <import resource="discount_service-conf.xml"/>
 
     <context:property-placeholder location="classpath:auditorium_maximum.properties,
                                             classpath:auditorium_minimum.properties"
@@ -28,25 +28,49 @@
     </bean>
 
     <bean id="auditoriumServiceImpl" class="ua.epam.spring.hometask.service.implementation.AuditoriumServiceImpl">
-        <property name="auditoriums">
-            <list>
-                <ref bean="auditoriumMaximum"/>
-                <ref bean="auditoriumMinimum"/>
-            </list>
-        </property>
+        <property name="auditoriumDatabase" ref="auditoriumDao"/>
     </bean>
 
     <bean id="bookingService" class="ua.epam.spring.hometask.service.implementation.BookingServiceImpl">
         <property name="discountService" ref="discountService"/>
+        <property name="bookedTickets" ref="bookingDao"/>
     </bean>
 
     <bean id="abstractDomainObjectiveServiceImpl"
-          class="ua.epam.spring.hometask.service.implementation.AbstractDomainObjectiveServiceImpl"/>
+          class="ua.epam.spring.hometask.service.implementation.AbstractDomainObjectServiceImpl">
+        <property name="domainObjects" ref="domainObjectDao"/>
+    </bean>
 
     <bean id="eventService"
-          class="ua.epam.spring.hometask.service.implementation.EventServiceImpl"/>
+          class="ua.epam.spring.hometask.service.implementation.EventServiceImpl">
+        <property name="events" ref="eventDao"/>
+    </bean>
 
     <bean id="userService"
-          class="ua.epam.spring.hometask.service.implementation.UserServiceImpl"/>
+          class="ua.epam.spring.hometask.service.implementation.UserServiceImpl">
+        <property name="registeredUsers" ref="usersDao"/>
+    </bean>
+
+    <bean id="domainObjectDao"
+          class="ua.epam.spring.hometask.dao.DomainObjectDatabase"/>
+
+    <bean id="auditoriumDao"
+          class="ua.epam.spring.hometask.dao.AuditoriumDatabase">
+        <property name="auditoriums">
+            <set>
+                <ref bean="auditoriumMaximum"/>
+                <ref bean="auditoriumMinimum"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="bookingDao"
+          class="ua.epam.spring.hometask.dao.BookingDatabase"/>
+
+    <bean id="eventDao"
+          class="ua.epam.spring.hometask.dao.EventDatabase"/>
+
+    <bean id="usersDao"
+          class="ua.epam.spring.hometask.dao.UserDatabase"/>
 
 </beans>

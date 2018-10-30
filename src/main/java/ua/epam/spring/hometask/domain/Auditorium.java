@@ -15,9 +15,6 @@ public class Auditorium {
     public Auditorium() {
     }
 
-    // TODO for course instructor - please answer me for this question: Is there a possibility not to create this 3-arg
-    // constructor and inject vipSeats field directly from .properties file instead of injecting String into constructor
-    // and then converting it into an array?
     public Auditorium(String name, long numberOfSeats, String vipSeats) {
         this.name = name;
         this.numberOfSeats = numberOfSeats;

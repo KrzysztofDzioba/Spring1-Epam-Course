@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.service.implementation;
 
+import ua.epam.spring.hometask.dao.AuditoriumDatabase;
 import ua.epam.spring.hometask.domain.Auditorium;
 import ua.epam.spring.hometask.service.AuditoriumService;
 
@@ -9,26 +10,24 @@ import java.util.Set;
 
 public class AuditoriumServiceImpl implements AuditoriumService {
 
-    public static Set<Auditorium> auditoriums;
+    private AuditoriumDatabase auditoriumDatabase;
 
     @Nonnull
     @Override
     public Set<Auditorium> getAll() {
-        return auditoriums;
+        return auditoriumDatabase.getAll();
     }
 
     @Nullable
     @Override
     public Auditorium getByName(@Nonnull String name) {
-        return auditoriums.stream()
+        return auditoriumDatabase.stream()
                 .filter(auditorium -> auditorium.getName().equals(name))
                 .findFirst()
                 .orElse(null);
     }
 
-    public void setAuditoriums(Set<Auditorium> auditoriums) {
-        AuditoriumServiceImpl.auditoriums = auditoriums;
+    public void setAuditoriumDatabase(AuditoriumDatabase auditoriumDatabase) {
+        this.auditoriumDatabase = auditoriumDatabase;
     }
-
-
 }

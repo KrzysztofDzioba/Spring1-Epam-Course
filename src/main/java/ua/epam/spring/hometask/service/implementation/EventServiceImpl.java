@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.service.implementation;
 
+import ua.epam.spring.hometask.dao.EventDatabase;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.service.EventService;
 
@@ -8,13 +9,12 @@ import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class EventServiceImpl implements EventService {
 
-    private Set<Event> events = new HashSet<>();
+    private EventDatabase events;
 
     @Nullable
     @Override
@@ -48,7 +48,7 @@ public class EventServiceImpl implements EventService {
     @Nonnull
     @Override
     public Collection<Event> getAll() {
-        return events;
+        return events.getAll();
     }
 
     public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
@@ -57,5 +57,9 @@ public class EventServiceImpl implements EventService {
                         .anyMatch(dt -> dt.toLocalDate().compareTo(ChronoLocalDate.from(from)) >= 0
                                 && dt.toLocalDate().compareTo(ChronoLocalDate.from(to)) <= 0))
                 .collect(Collectors.toSet());
+    }
+
+    public void setEvents(EventDatabase events) {
+        this.events = events;
     }
 }

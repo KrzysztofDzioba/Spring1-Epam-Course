@@ -1,14 +1,15 @@
 package ua.epam.spring.hometask.service.implementation;
 
+import ua.epam.spring.hometask.dao.DomainObjectDatabase;
 import ua.epam.spring.hometask.domain.DomainObject;
 import ua.epam.spring.hometask.service.AbstractDomainObjectService;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 
-public class AbstractDomainObjectiveServiceImpl implements AbstractDomainObjectService {
+public class AbstractDomainObjectServiceImpl implements AbstractDomainObjectService {
 
-    public static Set<DomainObject> domainObjects = new HashSet<>();
+    private DomainObjectDatabase domainObjects;
 
     @Override
     public DomainObject save(@Nonnull DomainObject object) {
@@ -31,7 +32,11 @@ public class AbstractDomainObjectiveServiceImpl implements AbstractDomainObjectS
 
     @Nonnull
     @Override
-    public Collection getAll() {
-        return domainObjects;
+    public Collection<DomainObject> getAll() {
+        return domainObjects.getAll();
+    }
+
+    public void setDomainObjects(DomainObjectDatabase domainObjects) {
+        this.domainObjects = domainObjects;
     }
 }
