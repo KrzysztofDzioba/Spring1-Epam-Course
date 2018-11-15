@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.service.implementation;
 
+import org.springframework.stereotype.Component;
 import ua.epam.spring.hometask.domain.Discount;
 import ua.epam.spring.hometask.domain.User;
 import ua.epam.spring.hometask.service.DiscountStrategy;
@@ -7,6 +8,7 @@ import ua.epam.spring.hometask.service.DiscountStrategy;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Component
 public class DiscountStrategyBirthday implements DiscountStrategy {
 
     @Override

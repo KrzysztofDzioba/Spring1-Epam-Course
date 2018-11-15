@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="discountService" class="ua.epam.spring.hometask.service.implementation.DiscountServiceImpl">
+    <bean id="discountServiceImpl" class="ua.epam.spring.hometask.service.implementation.DiscountServiceImpl">
         <property name="strategies" ref="strategiesDatabase"/>
     </bean>
 

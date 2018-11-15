@@ -1,5 +1,7 @@
 package ua.epam.spring.hometask.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.dao.BookingDatabase;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.Ticket;
@@ -13,10 +15,13 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
-    private DiscountService discountService;
+    @Autowired
+    private DiscountService discountServiceImpl;
 
+    @Autowired
     private BookingDatabase bookedTickets;
 
     @Override
@@ -33,7 +38,7 @@ public class BookingServiceImpl implements BookingService {
             else
                 priceSum += basePrice;
         }
-        byte discount = discountService.getDiscount(user, event, dateTime, seats.size());
+        byte discount = discountServiceImpl.getDiscount(user, event, dateTime, seats.size());
         return priceSum - priceSum * discount;
     }
 
@@ -52,13 +57,5 @@ public class BookingServiceImpl implements BookingService {
         return bookedTickets.stream()
                 .filter(ticket -> ticket.getEvent().equals(event) && ticket.getDateTime().equals(dateTime))
                 .collect(Collectors.toSet());
-    }
-
-    public void setDiscountService(DiscountService discountService) {
-        this.discountService = discountService;
-    }
-
-    public void setBookedTickets(BookingDatabase bookedTickets) {
-        this.bookedTickets = bookedTickets;
     }
 }

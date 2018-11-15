@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.dao;
 
+import org.springframework.stereotype.Component;
 import ua.epam.spring.hometask.domain.User;
 
 import java.util.Collection;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+@Component
 public class UserDatabase {
 
     private static Map<Long, User> registeredUsers = new HashMap<>();
