@@ -19,12 +19,9 @@ public class Application {
 
     public static void main(String[] args) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfiguration.class);
-//        ctx.register(AppConfig.class);
-//        ctx.refresh();
 
         AuditoriumDatabase auditoriumDatabase = (AuditoriumDatabase) ctx.getBean("auditoriumDatabase");
         Set<Auditorium> all = auditoriumDatabase.getAll();
-        System.out.println(all);
 
         AppTest appTest = (AppTest) ctx.getBean("appTest");
         appTest.run();

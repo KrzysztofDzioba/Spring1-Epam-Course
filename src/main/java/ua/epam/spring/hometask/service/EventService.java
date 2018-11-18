@@ -1,9 +1,9 @@
 package ua.epam.spring.hometask.service;
 
+import ua.epam.spring.hometask.domain.Event;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import ua.epam.spring.hometask.domain.Event;
 
 /**
  *
@@ -17,6 +17,8 @@ public interface EventService extends AbstractDomainObjectService<Event> {
      *            Name of the event
      * @return found event or <code>null</code>
      */
+    double getEventBasePrice(@Nonnull String name);
+
     public @Nullable Event getByName(@Nonnull String name);
 
     /*

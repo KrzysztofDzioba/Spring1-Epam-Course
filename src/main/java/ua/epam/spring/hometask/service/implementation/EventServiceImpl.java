@@ -30,6 +30,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public double getEventBasePrice(@Nonnull String name) {
+        Event event = getByName(name);
+        return event.getBasePrice();
+    }
+
+    @Override
     public Event save(@Nonnull Event object) {
         events.add(object);
         return object;

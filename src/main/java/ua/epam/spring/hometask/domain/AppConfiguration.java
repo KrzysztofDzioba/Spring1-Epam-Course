@@ -1,9 +1,10 @@
 package ua.epam.spring.hometask.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import ua.epam.spring.hometask.service.DiscountStrategy;
 
 import java.util.ArrayList;
@@ -22,50 +23,23 @@ import java.util.Set;
         "ua.epam.spring.hometask.service.implementation",
         "ua.epam.spring.hometask.aspect"
 })
-public class AppConfiguration {
+public class AppConfiguration implements EnvironmentAware {
 
-    //auditorium Maximum
-    @Value("${auditorium.maximum.name}")
-    private String maximumName;
+    private Environment environment;
 
-    @Value("${auditorium.maximum.seats}")
-    private Long maximumSeats;
-
-    @Value("${auditorium.maximum.vip.seats}")
-    private String maximumVipSeats;
-
-    //auditorium Minimum
-    @Value("${auditorium.minimum.name}")
-    private String minimumName;
-
-    @Value("${auditorium.minimum.seats}")
-    private Long minimumSeats;
-
-    @Value("${auditorium.minimum.vip.seats}")
-    private String minimumVipSeats;
-
-//    @Bean
-//    public AppTest appTest() {
-//        return new AppTest();
-//    }
-
-//    @Bean
-//    public DomainObjectDatabase domainObjectDatabase() {
-//        return new DomainObjectDatabase();
-//    }
-
-//    @Bean
-//    public AuditoriumDatabase auditoriumDatabase() {
-//        return new AuditoriumDatabase();
-//    }
-
-//    @Bean
-//    public Auditorium auditorium() {
-//        return new Auditorium(maximumName, maximumSeats, maximumVipSeats);
-//    }
+    @Override
+    public void setEnvironment(final Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
     public Set<Auditorium> auditoriums() {
+        String maximumName = environment.getRequiredProperty("auditorium.maximum.name");
+        Integer maximumSeats = environment.getRequiredProperty("auditorium.maximum.seats", Integer.class);
+        String maximumVipSeats = environment.getRequiredProperty("auditorium.maximum.vip.seats");
+        String minimumName = environment.getRequiredProperty("auditorium.minimum.name");
+        Integer minimumSeats = environment.getRequiredProperty("auditorium.minimum.seats", Integer.class);
+        String minimumVipSeats = environment.getRequiredProperty("auditorium.minimum.vip.seats");
         Auditorium auditoriumMaximum = new Auditorium(maximumName, maximumSeats, maximumVipSeats);
         Auditorium auditoriumMinimum = new Auditorium(minimumName, minimumSeats, minimumVipSeats);
         Set<Auditorium> auditoriums = new HashSet<>();
@@ -73,36 +47,6 @@ public class AppConfiguration {
         auditoriums.add(auditoriumMinimum);
         return auditoriums;
     }
-
-//    @Bean
-//    public DiscountStrategyBirthday discountStrategyBirthday() {
-//        return new DiscountStrategyBirthday();
-//    }
-//
-//    @Bean
-//    public DiscountStrategyEvery10Tickets discountStrategyEvery10Tickets() {
-//        return new DiscountStrategyEvery10Tickets();
-//    }
-
-//    @Bean
-//    public BookingDatabase bookingDatabase() {
-//        return new BookingDatabase();
-//    }
-
-//    @Bean
-//    public StrategiesDatabase strategiesDatabase() {
-//        return new StrategiesDatabase();
-//    }
-
-//    @Bean
-//    public EventDatabase eventDatabase() {
-//        return new EventDatabase();
-//    }
-
-//    @Bean
-//    public UserDatabase userDatabase() {
-//        return new UserDatabase();
-//    }
 
     @Autowired
     public DiscountStrategy discountStrategyBirthday;
@@ -119,7 +63,7 @@ public class AppConfiguration {
     }
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+    public PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
         return new PropertySourcesPlaceholderConfigurer();
     }
 }

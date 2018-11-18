@@ -3,6 +3,7 @@ package ua.epam.spring.hometask.domain;
 /**
  * Original intention of this class was to distinguish birthday discount from every 10 ticket discount
  */
+
 public class Discount {
 
     private boolean isWholePriceDiscount;
